@@ -17,8 +17,6 @@ import {
   DIRECTIONS
 } from "./constants";
 
-// const getRndInt = (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
 function App() {
 
   const canvasRef = useRef();
@@ -29,9 +27,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [player, setPlayer] = useState();
-  // const [circles, setCircles] = useState([]);
   const [gameSpeed, setGameSpeed] = useState(null);
-  // const [score, setScore] = useState(100);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
   const [current, setCurrent] = useState();
@@ -40,7 +36,7 @@ function App() {
   const [soundEnd] = useSound(sound);
   const [soundSteps, { stop: stopSoundSteps }] = useSound(footsteps);
 
-  useInterval(() => gameLoop(), speed);
+  useInterval(() => gameLoop(), gameSpeed);
 
   const startGame = () => {
     setSnake(SNAKE_START);
@@ -49,67 +45,47 @@ function App() {
     setSpeed(SPEED);
     setGameOn(!gameOn);
     setGameOver(false);
-    setIsGameRunning(true);
-    // setGameOn(!gameOn);
   };
 
   const endGame = () => {
-    setSpeed(null);
+    setGameOn(false);
     setGameOver(true);
+    setGameSpeed(null); // Stop the interval when the game ends
+    soundEnd();
   };
 
   const moveSnake = ({ keyCode }) =>
   keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
 
-  // const timeoutIdRef = useRef(null);
-  // const rounds = useRef(0);
-  // const currentInst = useRef(0);
-
-  // let pace = 1000;
-  // let levelAmount;
   const gameSetHandler = (level, name) => {
     const selectedLevel = levels.find(el => el.name === level);
 
     if (selectedLevel) {
       setGameSpeed(selectedLevel.SPEED);
+      setGameLaunch((prevLaunch) => !prevLaunch);
+      startGame();
 
       setPlayer({
         level: level,
         name: name
       });
-
-      setGameLaunch((prevLaunch) => !prevLaunch);
-      gameBegin();
     }
   };
-
-  function gameBegin() {
-    setGameOn(!gameOn);
-  }
     
   const stopHandler = () => {
+    endGame();
     setGameOn(false);
     setGameOver(!gameOver);
     // setGameOver(true);
-    endGame();
+    // endGame();
     soundEnd()
   }
 
   const closeHandler = () => {
-    setGameOver(!gameOver);
-    setGameLaunch(!gameLaunch);
-    // setScore(100);
+    setGameOver(false);
+    setGameLaunch(false);
+    setGameSpeed(null);
   }
-
-  const clickHandler = (id) => {
-    if (current !== id) {
-      stopHandler();
-      return;
-    }
-    // setScore((prevScore) => prevScore + 10);
-    // rounds.current--;
-    // soundEat();
-};
 
 useEffect(() => {
   if (gameOn) {
@@ -118,26 +94,6 @@ useEffect(() => {
     stopSoundSteps();
   }
 }, [gameOn, soundSteps, stopSoundSteps]);
-
-
-// const randomNumber = () => {
-//   if (rounds.current >= 3) {
-//     stopHandler();
-//     return;
-//   }
-
-//   let nextActive;
-
-//   do {
-//     nextActive = getRndInt(0, levelAmount)
-//   } while (nextActive === currentInst.current);
-
-//   setCurrent(nextActive);
-//   currentInst.current = nextActive;
-//   rounds.current++;
-//   pace *= 0.95;
-//   timeoutIdRef.current = setTimeout(randomNumber, pace);
-// };
 
 const checkCollision = (piece, snk = snake) => {
   if (
@@ -165,8 +121,16 @@ const checkAppleCollision = newSnake => {
   }
   return false;
 };
+// const moveSnake = ({ keyCode }) => {
+//   console.log('Key pressed:', keyCode);
+//   if (keyCode >= 37 && keyCode <= 40) {
+//     console.log('Updating direction...');
+//     setDir(DIRECTIONS[keyCode]);
+//   }
+// };
 
 const gameLoop = () => {
+  console.log('Game loop running...');
   const snakeCopy = JSON.parse(JSON.stringify(snake));
   const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
   snakeCopy.unshift(newSnakeHead);
@@ -197,21 +161,20 @@ const createApple = () =>
         width={`${CANVAS_SIZE[0]}px`}
         height={`${CANVAS_SIZE[1]}px`}
       />
-      / {gameLaunch && <NewGame onclick={gameSetHandler}/>}
-      {isGameRunning ? ( // Render "Stop Game" button only when the game is running
+    {gameLaunch && <NewGame onclick={gameSetHandler}/>}
+  {gameOn ? (
         <button onClick={stopHandler}>Stop Game</button>
       ) : (
-        <button onClick={startGame}>Start Game</button>
+        <button onClick={() => gameSetHandler("easy", "PlayerName")}>Start Easy</button>
       )}
-      {gameOn && (
-<Game 
-moveSnake={moveSnake}
-  // score={score} 
-  stopHandler={stopHandler} 
-  clickHandler={clickHandler}
-  current={current}/>)}
-      {gameOver && <GameOver closeHandler={closeHandler} />}
-   
+      {/* {gameOn && (
+        <Game 
+        // moveSnake={moveSnake}
+        stopHandler={stopHandler} 
+      />
+    )} */}
+    {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
+     
     </div>
   );
 };
