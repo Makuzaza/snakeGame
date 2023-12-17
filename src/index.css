@@ -7,8 +7,7 @@
 
   color-scheme: light dark;
   color: rgba(228, 224, 224, 0.87);
-  background-color: #cc776c;
-  background-image: url("https://images.unsplash.com/photo-1514377006585-6e7975371bd6?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8d2ludGVyfHx8fHx8MTcwMjM3MTU2OA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600");
+  background-color: #db9797;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -70,12 +69,6 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.active {
-  background: url('./assets/snow_flake.png') center center/cover;
-  background-position: center;
-  background-size: contain;
 }
 
 .hidden {
@@ -148,9 +141,10 @@ input:hover {
   display: grid;
   align-items: center;
   justify-items: left;
-  background-image: url('./assets/snow.jpeg');
+  background-image: url('./assets/snake.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: right;
 }
 
 .gameover_box h2, p {
@@ -207,3 +201,4 @@ input:hover {
     background-repeat: no-repeat;
   }
 }
+

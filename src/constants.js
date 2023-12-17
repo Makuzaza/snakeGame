@@ -1,8 +1,8 @@
 const CANVAS_SIZE = [500, 500];
 
 const SNAKE_START = [
-  [8, 7],
-  [8, 8]
+  [8, 15],
+  [8, 16]
 ];
 
 const APPLE_START = [8, 3];

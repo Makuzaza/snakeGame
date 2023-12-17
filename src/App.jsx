@@ -142,6 +142,17 @@ const gameLoop = () => {
 const createApple = () =>
   apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
 
+  // keyboard
+  useEffect(() => {
+    const handleKeyDown = (e) => moveSnake(e);
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []); 
+
   // Draw the snake and the apple on the canvas using the useEffect hook
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
@@ -161,20 +172,29 @@ const createApple = () =>
         width={`${CANVAS_SIZE[0]}px`}
         height={`${CANVAS_SIZE[1]}px`}
       />
-    {gameLaunch && <NewGame onclick={gameSetHandler}/>}
-  {gameOn ? (
+      
+      {isGameRunning ? (
         <button onClick={stopHandler}>Stop Game</button>
       ) : (
-        <button onClick={() => gameSetHandler("easy", "PlayerName")}>Start Easy</button>
+        <div>
+        {!gameOn && (
+          <NewGame onclick={gameSetHandler} />
+        )}
+        {/* {levels.map((level) => (
+          <button key={level.name} onClick={() => gameSetHandler(level.name, player)}>
+           {level.name}
+          </button>
+        ))} */}
+      </div>
       )}
-      {/* {gameOn && (
+
+      {gameOn && (
         <Game 
-        // moveSnake={moveSnake}
         stopHandler={stopHandler} 
       />
-    )} */}
+    )}
     {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
-     
+         {/* {gameLaunch && <NewGame onclick={gameSetHandler}/>} */}
     </div>
   );
 };
