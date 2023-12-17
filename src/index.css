@@ -26,9 +26,13 @@ body {
 }
 
 h1 {
-  font-family: "Snowburst One", sans-serif;
-  font-size: 3rem;
-  color: white;
+  font-size: 2.5rem;
+  color: rgb(59, 59, 59);
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
 }
 
 input, button  {
@@ -37,12 +41,11 @@ input, button  {
   font-size: inherit;
   border-radius: 20px;
   border: none;
-  margin: 1rem;
+  margin: 0.5rem;
 }
 
 button {  
   font-weight: 400;
-  font-family: "Snowburst One", sans-serif;
   background-color: rgb(183, 204, 224);
   color: #333;
 }
@@ -53,61 +56,8 @@ button:hover {
   box-shadow: 0 0 30px #f4f2f2;
 }
 
-.circles {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.circle {
-  background-color: transparent;
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hidden {
-  display: none;
-}
-
-.score {
-  font-weight: 400;
-  font-family: "Snowburst One", sans-serif;
-  font-size: 2rem;
-}
-
-.score_main {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  gap: 1rem;
-}
-
-.score_text {
-  color: red;
-  background-color: #f4f2f2;
-  padding: 5px;
-  border-radius: 10px;
-}
-
-.score_modal {
-  width: 4rem;
-  background-color: #f4f2f2;
-  border-radius: 10px;
-  font-weight: 400;
-  font-family: "Snowburst One", sans-serif;
-  font-size: 2rem;
-  margin-bottom: 15px;
-}
-
 input {
   width: 250px;
-  margin-bottom: 20px;
   padding: 10px 20px;
   font-family: inherit;
   font-size: inherit;
@@ -148,7 +98,6 @@ input:hover {
 }
 
 .gameover_box h2, p {
-  font-family: "Snowburst One", sans-serif;
   background-color: #f4f2f2;
   border-radius: 10px;
   padding: 0 10px;
@@ -184,6 +133,10 @@ input:hover {
   background-color: #f4f2f2;
   padding: 0 10px;
   border-radius: 10px;
+}
+
+canvas {
+  background-color: #c0bebe;
 }
 
 @media (max-width: 500px) {

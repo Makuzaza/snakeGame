@@ -10,7 +10,7 @@ function NewGame({onclick}) {
 
     return (
       <div>
-        <h2>Start a game by choosing difficulty and entering your name</h2>
+        <h3>Start a game by choosing difficulty and entering your name</h3>
         <input type="text" placeholder='Enter your name...' onChange={inputHandler}/>
         <div>
           <button onClick={()=> onclick('easy', name)}>Easy</button>

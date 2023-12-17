@@ -1,9 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useInterval } from "./useIntervals";
 import { useSound } from 'use-sound';
-import ice from './assets/ice.mp3';
+import eat from './assets/eat.mp3';
 import sound from './assets/sound.mp3';
-import footsteps from './assets/footsteps.mp3';
 import NewGame from "./components/NewGame";
 import { levels } from "./levels";
 import Game from "./components/Game";
@@ -30,11 +29,9 @@ function App() {
   const [gameSpeed, setGameSpeed] = useState(null);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
-  const [current, setCurrent] = useState();
 
-  const [soundEat] = useSound(ice);
+  const [soundEat] = useSound(eat);
   const [soundEnd] = useSound(sound);
-  const [soundSteps, { stop: stopSoundSteps }] = useSound(footsteps);
 
   useInterval(() => gameLoop(), gameSpeed);
 
@@ -76,8 +73,6 @@ function App() {
     endGame();
     setGameOn(false);
     setGameOver(!gameOver);
-    // setGameOver(true);
-    // endGame();
     soundEnd()
   }
 
@@ -86,14 +81,6 @@ function App() {
     setGameLaunch(false);
     setGameSpeed(null);
   }
-
-useEffect(() => {
-  if (gameOn) {
-    soundSteps();
-  } else {
-    stopSoundSteps();
-  }
-}, [gameOn, soundSteps, stopSoundSteps]);
 
 const checkCollision = (piece, snk = snake) => {
   if (
@@ -117,17 +104,11 @@ const checkAppleCollision = newSnake => {
       newApple = createApple();
     }
     setApple(newApple);
+    soundEat();
     return true;
   }
   return false;
 };
-// const moveSnake = ({ keyCode }) => {
-//   console.log('Key pressed:', keyCode);
-//   if (keyCode >= 37 && keyCode <= 40) {
-//     console.log('Updating direction...');
-//     setDir(DIRECTIONS[keyCode]);
-//   }
-// };
 
 const gameLoop = () => {
   console.log('Game loop running...');
@@ -165,54 +146,27 @@ const createApple = () =>
   }, [snake, apple, gameOver]);
 
   return (
+
     <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
-      <canvas
+       <h1>Snake game</h1>
+        <canvas
         style={{ border: "1px solid white" }}
         ref={canvasRef}
         width={`${CANVAS_SIZE[0]}px`}
         height={`${CANVAS_SIZE[1]}px`}
       />
-      
       {isGameRunning ? (
         <button onClick={stopHandler}>Stop Game</button>
       ) : (
         <div>
-        {!gameOn && (
-          <NewGame onclick={gameSetHandler} />
-        )}
-        {/* {levels.map((level) => (
-          <button key={level.name} onClick={() => gameSetHandler(level.name, player)}>
-           {level.name}
-          </button>
-        ))} */}
-      </div>
+        {!gameOn && <NewGame onclick={gameSetHandler} />}
+        </div>
       )}
 
-      {gameOn && (
-        <Game 
-        stopHandler={stopHandler} 
-      />
-    )}
-    {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
-         {/* {gameLaunch && <NewGame onclick={gameSetHandler}/>} */}
+      {gameOn && <Game stopHandler={stopHandler} />}
+      {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
     </div>
   );
 };
-
-//   return (
-//     <>
-// <h1>Catch the snow!</h1>
-// {gameLaunch && <NewGame onclick={gameSetHandler}/>}
-// {gameOn && (
-// <Game 
-//   score={score} 
-//   circles={circles} 
-//   stopHandler={stopHandler} 
-//   clickHandler={clickHandler}
-//   current={current}/>)}
-// {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score}/>}
-//     </>
-//   );
-// };
  
 export default App;
