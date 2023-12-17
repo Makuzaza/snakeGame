@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&family=Snowburst+One&display=swap');
+
+:root {
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5;
+  font-weight: 300;
+
+  color-scheme: light dark;
+  color: rgba(228, 224, 224, 0.87);
+  background-color: #cc776c;
+  background-image: url("https://images.unsplash.com/photo-1514377006585-6e7975371bd6?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=900&ixid=MnwxfDB8MXxyYW5kb218MHx8d2ludGVyfHx8fHx8MTcwMjM3MTU2OA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1600");
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Snowburst One", sans-serif;
+  font-size: 3rem;
+  color: white;
+}
+
+input, button  {
+  padding: 0.8rem 2rem;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 20px;
+  border: none;
+  margin: 1rem;
+}
+
+button {  
+  font-weight: 400;
+  font-family: "Snowburst One", sans-serif;
+  background-color: rgb(183, 204, 224);
+  color: #333;
+}
+
+button:hover {
+  background-color: #646cff;
+  color: white;
+  box-shadow: 0 0 30px #f4f2f2;
+}
+
+.circles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.circle {
+  background-color: transparent;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  background: url('./assets/snow_flake.png') center center/cover;
+  background-position: center;
+  background-size: contain;
+}
+
+.hidden {
+  display: none;
+}
+
+.score {
+  font-weight: 400;
+  font-family: "Snowburst One", sans-serif;
+  font-size: 2rem;
+}
+
+.score_main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 1rem;
+}
+
+.score_text {
+  color: red;
+  background-color: #f4f2f2;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.score_modal {
+  width: 4rem;
+  background-color: #f4f2f2;
+  border-radius: 10px;
+  font-weight: 400;
+  font-family: "Snowburst One", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 250px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: aliceblue;
+  color: #333;
+}
+
+input:hover {
+  box-shadow: 0 0 30px #f4f2f2;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  color: #333;
+}
+
+.gameover_box {
+  padding: 1rem;
+  width: 400px;
+  height: 270px;
+  border-radius: 5px;
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-items: left;
+  background-image: url('./assets/snow.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.gameover_box h2, p {
+  font-family: "Snowburst One", sans-serif;
+  background-color: #f4f2f2;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+.gameover_box button {
+  background-color: transparent;
+  position: absolute;
+  font-weight: 400;
+  top: -15px;
+  right: -15px;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.gameover_box button:hover {
+  background-color: #646cff;
+}
+
+.game_data {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.name {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  background-color: #f4f2f2;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+@media (max-width: 500px) {
+  .gameover_box {
+    padding: 1rem;
+    width: 280px;
+    height: 250px;
+    border-radius: 5px;
+    position: relative;
+    display: grid;
+    align-items: center;
+    justify-items: left;
+    background-image: url('./assets/snow.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
