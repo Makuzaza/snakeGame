@@ -37,7 +37,7 @@ function App() {
   const [soundEnd] = useSound(sound);
 
   // The useInterval hook is used to create a game loop.
-  //The gameLoop function is called repeatedly with a specified interval (gameSpeed).
+  // The gameLoop function is called repeatedly with a specified interval (gameSpeed).
   useInterval(() => gameLoop(), gameSpeed);
 
   // starting and ending the game
@@ -133,7 +133,7 @@ const gameLoop = () => {
   setSnake(snakeCopy);
 };
 
-// andom position for the apple
+// random position for the apple
 const createApple = () =>
   apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
 
