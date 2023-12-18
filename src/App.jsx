@@ -32,6 +32,7 @@ function App() {
   const [gameSpeed, setGameSpeed] = useState(null);
   const [gameLaunch, setGameLaunch] = useState(true);
   const [gameOn, setGameOn] = useState(false);
+  const [score, setScore] = useState(0);
 
   const [soundEat] = useSound(eat);
   const [soundEnd] = useSound(sound);
@@ -89,6 +90,7 @@ function App() {
     setGameOver(false);
     setGameLaunch(false);
     setGameSpeed(null);
+    setScore(0);
   }
 
   // check for hittings between game elements, the snake hitting the walls
@@ -115,6 +117,7 @@ const checkApple = newSnake => {
       newApple = createApple();
     }
     setApple(newApple);
+    setScore(prevScore => prevScore + 10);
     soundEat();
     return true;
   }
@@ -162,6 +165,7 @@ const createApple = () =>
   return (
     <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
        <h1>Snake game</h1>
+       <div className='score'>Score: {score}</div>
         <canvas
         style={{ border: "1px solid white" }}
         ref={canvasRef}
@@ -177,7 +181,7 @@ const createApple = () =>
       )}
 
       {gameOn && <Game stopHandler={stopHandler} />}
-      {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
+      {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score}/>}
     </div>
   );
 };

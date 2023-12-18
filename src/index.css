@@ -26,6 +26,7 @@ body {
 }
 
 h1 {
+  font-family: 'Orbitron', sans-serif;
   font-size: 2.5rem;
   color: rgb(59, 59, 59);
   margin: 0;
@@ -122,6 +123,35 @@ input:hover {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+}
+
+.score {
+  font-size: 1.5rem;
+  color:rgb(59, 59, 59);
+}
+
+.score_main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 1rem;
+}
+
+.score_text {
+  color: red;
+  background-color: #f4f2f2;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.score_modal {
+  width: 4rem;
+  background-color: #f4f2f2;
+  border-radius: 10px;
+  font-weight: 400;
+  font-family: "Snowburst One", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 15px;
 }
 
 .name {
