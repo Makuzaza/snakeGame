@@ -1,3 +1,4 @@
+// various modules and components are imported
 import React, { useRef, useState, useEffect } from 'react';
 import { useInterval } from "./useIntervals";
 import { useSound } from 'use-sound';
@@ -16,8 +17,10 @@ import {
   DIRECTIONS
 } from "./constants";
 
+// component App
 function App() {
 
+  // various state variables are initialized using the useState hook
   const canvasRef = useRef();
   const [snake, setSnake] = useState(SNAKE_START);
   const [apple, setApple] = useState(APPLE_START);
@@ -33,8 +36,11 @@ function App() {
   const [soundEat] = useSound(eat);
   const [soundEnd] = useSound(sound);
 
+  // The useInterval hook is used to create a game loop.
+  //The gameLoop function is called repeatedly with a specified interval (gameSpeed).
   useInterval(() => gameLoop(), gameSpeed);
 
+  // starting and ending the game
   const startGame = () => {
     setSnake(SNAKE_START);
     setApple(APPLE_START);
@@ -51,9 +57,11 @@ function App() {
     soundEnd();
   };
 
+  // moving the snake
   const moveSnake = ({ keyCode }) =>
   keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode]);
 
+  // setting up the game based on the selected level
   const gameSetHandler = (level, name) => {
     const selectedLevel = levels.find(el => el.name === level);
 
@@ -68,21 +76,23 @@ function App() {
       });
     }
   };
-    
+  
+  // stopping the game
   const stopHandler = () => {
     endGame();
     setGameOn(false);
     setGameOver(!gameOver);
     soundEnd()
   }
-
+ // closing the game over screen
   const closeHandler = () => {
     setGameOver(false);
     setGameLaunch(false);
     setGameSpeed(null);
   }
 
-const checkCollision = (piece, snk = snake) => {
+  // check for hittings between game elements, the snake hitting the walls
+const checkHitting = (piece, snk = snake) => {
   if (
     piece[0] * SCALE >= CANVAS_SIZE[0] ||
     piece[0] < 0 ||
@@ -97,10 +107,11 @@ const checkCollision = (piece, snk = snake) => {
   return false;
 };
 
-const checkAppleCollision = newSnake => {
+// detecting when the snake eats an apple
+const checkApple = newSnake => {
   if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
     let newApple = createApple();
-    while (checkCollision(newApple, newSnake)) {
+    while (checkHitting(newApple, newSnake)) {
       newApple = createApple();
     }
     setApple(newApple);
@@ -110,20 +121,23 @@ const checkAppleCollision = newSnake => {
   return false;
 };
 
+// iterations of the game, updates the snake's position, checks for hittings
+// unshift() - adds the specified elements to the beginning of an array
+// pop() - removes the last element from an array 
 const gameLoop = () => {
-  console.log('Game loop running...');
   const snakeCopy = JSON.parse(JSON.stringify(snake));
   const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
   snakeCopy.unshift(newSnakeHead);
-  if (checkCollision(newSnakeHead)) endGame();
-  if (!checkAppleCollision(snakeCopy)) snakeCopy.pop();
+  if (checkHitting(newSnakeHead)) endGame();
+  if (!checkApple(snakeCopy)) snakeCopy.pop();
   setSnake(snakeCopy);
 };
 
+// andom position for the apple
 const createApple = () =>
   apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)));
 
-  // keyboard
+  // adds and removes a keyboard event listener to handle key presses
   useEffect(() => {
     const handleKeyDown = (e) => moveSnake(e);
 
@@ -146,7 +160,6 @@ const createApple = () =>
   }, [snake, apple, gameOver]);
 
   return (
-
     <div role="button" tabIndex="0" onKeyDown={e => moveSnake(e)}>
        <h1>Snake game</h1>
         <canvas
