@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Makuzaza_snakeGame&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Makuzaza_snakeGame)
+
 # Snake game
 
 ## Game initialisation:
